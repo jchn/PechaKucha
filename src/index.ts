@@ -8,6 +8,7 @@ import {
   TextVNode,
 } from "./vdom";
 import ReadyView from "./ReadyView";
+import PlayingView from "./PlayingView";
 
 const container = document.querySelector("#app");
 
@@ -84,33 +85,6 @@ function createStore<S>(state: S, reducers, onChange: (state: S) => void) {
   };
 }
 
-function PlayingView({
-  currentSlide,
-  slides,
-  onSlideFinished,
-  onSlideShowFinished,
-}: {
-  currentSlide: number;
-  slides: string[];
-  onSlideFinished: () => void;
-  onSlideShowFinished: () => void;
-}) {
-  if (currentSlide === 19) {
-    setTimeout(() => {
-      onSlideShowFinished();
-    }, 2000);
-  } else {
-    setTimeout(() => {
-      onSlideFinished();
-    }, 2000);
-  }
-
-  return h("div", { class: "PlayingView" }, [
-    h("text", {}, ["playing slideshow"]),
-    h("text", {}, [`current slide: ${currentSlide}`]),
-  ]);
-}
-
 function FinishedView() {
   return h("div", { class: "FinishedView" }, [
     h("text", {}, ["finished slideshow"]),
@@ -134,7 +108,7 @@ function renderApp(
         slides: state.slides,
         onSlideFinished: () => dispatch({ type: "next-slide", payload: null }),
         onSlideShowFinished: () =>
-          dispatch({ type: "change-app-mode", payload: Mode.READY }),
+          dispatch({ type: "change-app-mode", payload: Mode.FINISHED }),
       });
     case Mode.FINISHED:
       return FinishedView();
