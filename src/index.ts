@@ -7,6 +7,7 @@ import {
   VNode,
   TextVNode,
 } from "./vdom";
+import ReadyView from "./ReadyView";
 
 const container = document.querySelector("#app");
 
@@ -83,12 +84,6 @@ function createStore<S>(state: S, reducers, onChange: (state: S) => void) {
   };
 }
 
-function ReadyView({ onPressPlay }) {
-  return h("div", { class: "ReadyView" }, [
-    h("button", { onClick: onPressPlay }, [h("text", {}, ["play"])]),
-  ]);
-}
-
 function PlayingView({
   currentSlide,
   slides,
@@ -129,6 +124,7 @@ function renderApp(
   switch (state.currentMode) {
     case Mode.READY:
       return ReadyView({
+        urls: state.slides,
         onPressPlay: () =>
           dispatch({ type: "change-app-mode", payload: Mode.PLAYING }),
       });

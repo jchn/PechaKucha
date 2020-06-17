@@ -3,11 +3,12 @@ export type VNodeProps = {
   onDrop?: () => void;
   onDragEnter?: () => void;
   onDragOver?: () => void;
-  class: string;
+  class?: string;
+  src?: string;
 };
 
 export type VNode = {
-  type: "div" | "button";
+  type: "div" | "button" | "img";
   children: VNode[];
   props: VNodeProps;
   _ref?: HTMLElement;
@@ -48,6 +49,9 @@ export function renderVNode(vnode: VNode | TextVNode): VNode | TextVNode {
     }
     if (vnode.props.class) {
       ref.classList.add(vnode.props.class);
+    }
+    if (vnode.props.src) {
+      ref.setAttribute("src", vnode.props.src);
     }
     vnode.children.forEach((cvnode) => {
       renderVNode(cvnode);
