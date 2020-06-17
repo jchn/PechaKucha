@@ -1,3 +1,115 @@
 body {
   margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+  background-color: #000;
+  color: #fff;
+}
+
+#app {
+  display: flex;
+  flex: 1;
+  min-height: 100%;
+}
+
+.CollectView,
+.ReadyView,
+.FinishedView {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.ReadyView .overlay,
+.FinishedView .overlay {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.ReadyView .title,
+.FinishedView .title {
+  position: relative;
+  z-index: 2;
+}
+
+.ReadyView .center-container,
+.FinishedView .center-container {
+  position: absolute;
+}
+
+.title {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 96px;
+  line-height: 116px;
+  text-align: center;
+}
+
+.btn {
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.slide-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.slide-grid img {
+  width: calc(20% - 20px);
+  object-fit: cover;
+  display: inline-block;
+  margin: 10px;
+}
+
+.center-container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.progress-indicator-container {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.progress-indicator-track {
+  height: 20px;
+  width: 100%;
+}
+
+.progress-indicator-slider {
+  height: 100%;
+  background-color: #219653;
+  animation: slide;
+  animation-duration: 20s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slide {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
 }

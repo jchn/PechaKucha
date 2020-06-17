@@ -8,7 +8,7 @@ export type VNodeProps = {
 };
 
 export type VNode = {
-  type: "div" | "button" | "img";
+  type: "div" | "button" | "img" | "h1";
   children: VNode[];
   props: VNodeProps;
   _ref?: HTMLElement;
@@ -48,7 +48,7 @@ export function renderVNode(vnode: VNode | TextVNode): VNode | TextVNode {
       ref.addEventListener("dragover", vnode.props.onDragOver);
     }
     if (vnode.props.class) {
-      ref.classList.add(vnode.props.class);
+      ref.classList.add.apply(ref.classList, vnode.props.class.split(" "));
     }
     if (vnode.props.src) {
       ref.setAttribute("src", vnode.props.src);

@@ -1,5 +1,7 @@
 import { h } from "./vdom";
 
+const SLIDE_DURATION_MS = 20000;
+
 function PlayingView({
   currentSlide,
   slides,
@@ -11,20 +13,23 @@ function PlayingView({
   onSlideFinished: () => void;
   onSlideShowFinished: () => void;
 }) {
-  if (currentSlide === slides.length) {
+  if (currentSlide === slides.length - 1) {
     setTimeout(() => {
       onSlideShowFinished();
-    }, 2000);
+    }, SLIDE_DURATION_MS);
   } else {
     setTimeout(() => {
       onSlideFinished();
-    }, 2000);
+    }, SLIDE_DURATION_MS);
   }
 
   return h("div", { class: "PlayingView" }, [
-    h("text", {}, ["playing slideshow"]),
-    h("text", {}, [`current slide: ${currentSlide}`]),
-    h("img", { src: slides[currentSlide] }, []),
+    h("img", { class: "slide", src: slides[currentSlide] }, []),
+    h("div", { class: "progress-indicator-container" }, [
+      h("div", { class: "progress-indicator-track" }, [
+        h("div", { class: "progress-indicator-slider" }, []),
+      ]),
+    ]),
   ]);
 }
 

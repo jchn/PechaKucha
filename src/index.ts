@@ -1,6 +1,5 @@
 import CollectView from "./CollectView";
 import {
-  h,
   unmountVNode,
   renderVNode,
   mountVNode,
@@ -9,6 +8,7 @@ import {
 } from "./vdom";
 import ReadyView from "./ReadyView";
 import PlayingView from "./PlayingView";
+import FinishedView from "./FinishedView";
 
 const container = document.querySelector("#app");
 
@@ -52,15 +52,25 @@ function setSlides(state: AppState, slides: string[]) {
   };
 }
 
+function replay(state: AppState) {
+  return {
+    ...state,
+    currentMode: Mode.PLAYING,
+    currentSlide: 0,
+  };
+}
+
 type NextSlideAction = { type: "next-slide"; payload: null };
 type ChangeAppModeAction = { type: "change-app-mode"; payload: Mode };
 type SetSlidesAction = { type: "set-slides"; payload: string[] };
+type ReplayAction = { type: "replay"; payload: null };
 type InitAction = { type: "init"; payload: null };
 
 type AppAction =
   | NextSlideAction
   | ChangeAppModeAction
   | SetSlidesAction
+  | ReplayAction
   | InitAction;
 
 function updateAppState(state: AppState, action: AppAction): AppState {
@@ -71,6 +81,8 @@ function updateAppState(state: AppState, action: AppAction): AppState {
       return changeAppMode(state, action.payload);
     case "set-slides":
       return setSlides(state, action.payload);
+    case "replay":
+      return replay(state);
   }
   return state;
 }
@@ -83,12 +95,6 @@ function createStore<S>(state: S, reducers, onChange: (state: S) => void) {
       onChange(s);
     },
   };
-}
-
-function FinishedView() {
-  return h("div", { class: "FinishedView" }, [
-    h("text", {}, ["finished slideshow"]),
-  ]);
 }
 
 function renderApp(
@@ -111,7 +117,12 @@ function renderApp(
           dispatch({ type: "change-app-mode", payload: Mode.FINISHED }),
       });
     case Mode.FINISHED:
-      return FinishedView();
+      return FinishedView({
+        urls: state.slides,
+        onPressReplay: () => {
+          dispatch({ type: "replay", payload: null });
+        },
+      });
     case Mode.COLLECT:
     default:
       return CollectView({

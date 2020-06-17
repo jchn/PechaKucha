@@ -1,17 +1,17 @@
 import { h } from "./vdom";
 
-function ReadyView({
-  onPressPlay,
+function FinishedView({
   urls,
+  onPressReplay,
 }: {
-  onPressPlay: () => void;
   urls: string[];
+  onPressReplay: () => void;
 }) {
-  return h("div", { class: "ReadyView" }, [
+  return h("div", { class: "FinishedView" }, [
     h("div", { class: "overlay" }, []),
     h("div", { class: "center-container" }, [
-      h("btn", { class: "title btn", onClick: onPressPlay }, [
-        h("text", {}, ["Play"]),
+      h("btn", { class: "title btn", onClick: onPressReplay }, [
+        h("text", {}, ["Replay"]),
       ]),
     ]),
     h(
@@ -24,4 +24,4 @@ function ReadyView({
   ]);
 }
 
-export default ReadyView;
+export default FinishedView;

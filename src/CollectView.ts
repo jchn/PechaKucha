@@ -40,7 +40,7 @@ function CollectView({
   }
 
   return h("div", { class: "CollectView", onDrop, onDragEnter, onDragOver }, [
-    h("button", { onClick: onCollected }, [h("text", {}, ["onCollected"])]),
+    h("h1", { class: "title" }, [h("text", {}, ["Drop some slides"])]),
   ]);
 }
 
