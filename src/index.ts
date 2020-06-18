@@ -133,7 +133,7 @@ function renderApp(
       });
   }
 }
-
+console.log("test");
 let vnode = null;
 
 const store = createStore<AppState>(state, updateAppState, (newState) => {

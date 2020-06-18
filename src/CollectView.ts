@@ -31,12 +31,14 @@ function CollectView({
   function onDrop(e) {
     e.preventDefault();
     const fileList = e.dataTransfer.files;
-    getImageURL(fileList[0]);
-    Promise.all<string>(Array.prototype.map.call(fileList, getImageURL)).then(
-      (urls) => {
-        onCollected(urls);
-      }
-    );
+
+    Promise.all<string>(
+      Array.from(fileList)
+        .sort((a, b) => parseInt(a.name) - parseInt(b.name))
+        .map(getImageURL)
+    ).then((urls) => {
+      onCollected(urls);
+    });
   }
 
   return h("div", { class: "CollectView", onDrop, onDragEnter, onDragOver }, [
