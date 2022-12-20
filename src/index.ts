@@ -133,13 +133,13 @@ function renderApp(
       });
   }
 }
-console.log("test");
-let vnode = null;
+
+let vnode: VNode | TextVNode;
 
 const store = createStore<AppState>(state, updateAppState, (newState) => {
-  if (vnode) unmountVNode(container, vnode);
+  if (container && vnode) unmountVNode(container, vnode);
   vnode = renderVNode(renderApp(newState, store.dispatch));
-  mountVNode(container, vnode);
+  if (container) mountVNode(container, vnode);
 });
 
 store.dispatch({ action: "init", payload: null });
