@@ -4,13 +4,12 @@
   "description": "",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel ./src/index.html",
     "build": "parcel build ./src/index.html"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "John van de Water",
+  "license": "MIT",
   "devDependencies": {
     "@parcel/compressor-gzip": "^2.8.2",
     "parcel": "^2.8.2",
